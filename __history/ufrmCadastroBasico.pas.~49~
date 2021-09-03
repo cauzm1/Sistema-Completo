@@ -1,0 +1,118 @@
+unit ufrmCadastroBasico;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DB, Vcl.Grids,
+  Vcl.DBGrids, Vcl.ComCtrls, Vcl.ToolWin, Vcl.ActnMan, Vcl.ActnCtrls,
+  Vcl.ExtCtrls, System.Actions, Vcl.ActnList, System.ImageList, Vcl.ImgList,
+  Vcl.PlatformDefaultStyleActnCtrls, Datasnap.DBClient;
+
+type
+  TfrmCadastroBasico = class(TForm)
+    dsTabela: TDataSource;
+    ActionToolBarCadastro: TActionToolBar;
+    tbsCadastro: TPageControl;
+    TabSheet1: TTabSheet;
+    tbsPesquisa: TTabSheet;
+    DBGrid1: TDBGrid;
+    ActionManagerCadastro: TActionManager;
+    ImageListCadastro: TImageList;
+    ActionInserir: TAction;
+    ActionEditar: TAction;
+    ActionExcluir: TAction;
+    ActionSalvar: TAction;
+    ActionCancelar: TAction;
+    ActionPesquisar: TAction;
+    ActionImprimir: TAction;
+    ActionFechar: TAction;
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure ActionInserirExecute(Sender: TObject);
+    procedure ActionEditarExecute(Sender: TObject);
+    procedure ActionPesquisarExecute(Sender: TObject);
+    procedure ActionCancelarExecute(Sender: TObject);
+    procedure ActionSalvarExecute(Sender: TObject);
+    procedure ActionExcluirExecute(Sender: TObject);
+    procedure ActionImprimirExecute(Sender: TObject);
+    procedure ActionFecharExecute(Sender: TObject);
+    procedure ActionCancelarUpdate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadastroBasico: TfrmCadastroBasico;
+
+implementation
+
+{$R *.dfm}
+
+uses ModConexao;
+
+procedure TfrmCadastroBasico.ActionCancelarExecute(Sender: TObject);
+begin
+TClientDataSet(dsTabela).cancel;
+end;
+
+procedure TfrmCadastroBasico.ActionCancelarUpdate(Sender: TObject);
+begin
+TAction(ActionCancelar).Enabled:=TAction(ActionSalvar).Enabled = true;
+end;
+
+procedure TfrmCadastroBasico.ActionEditarExecute(Sender: TObject);
+begin
+//
+end;
+
+procedure TfrmCadastroBasico.ActionExcluirExecute(Sender: TObject);
+begin
+//
+end;
+
+procedure TfrmCadastroBasico.ActionFecharExecute(Sender: TObject);
+begin
+  close;
+end;
+
+procedure TfrmCadastroBasico.ActionImprimirExecute(Sender: TObject);
+begin
+//
+end;
+
+procedure TfrmCadastroBasico.ActionInserirExecute(Sender: TObject);
+begin
+//
+end;
+
+procedure TfrmCadastroBasico.ActionPesquisarExecute(Sender: TObject);
+begin
+  TClientDataSet(dsTabela.DataSet).Close;
+  TClientDataSet(dsTabela.DataSet).Open;
+end;
+
+procedure TfrmCadastroBasico.ActionSalvarExecute(Sender: TObject);
+begin
+//
+end;
+
+procedure TfrmCadastroBasico.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  TClientDataSet(dsTabela.DataSet).Close;
+  TClientDataSet(dsTabela.DataSet).Cancel;
+end;
+
+procedure TfrmCadastroBasico.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+if key = #27 then
+  close;
+
+  if key=#13 then
+    Perform(WM_NEXTDLGCTL,0,0);
+end;
+end.

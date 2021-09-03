@@ -1,0 +1,22 @@
+program Sistema_Financas;
+
+uses
+  Vcl.Forms,
+  Uprincipal in 'Uprincipal.pas' {frmprincipal},
+  Vcl.Themes,
+  Vcl.Styles,
+  ModConexao in 'ModConexao.pas' {dmDados: TDataModule},
+  ufrmCadastroBasico in 'view\ufrmCadastroBasico.pas' {frmcadastrobasico},
+  ufrmCadastroUsuarios in 'view\ufrmCadastroUsuarios.pas' {frmcadastrousuarios},
+  UFuncoes in 'classes\UFuncoes.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  TStyleManager.TrySetStyle('Light');
+  Application.CreateForm(Tfrmprincipal, frmprincipal);
+  Application.CreateForm(TdmDados, dmDados);
+  Application.Run;
+end.

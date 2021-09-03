@@ -1,0 +1,39 @@
+unit ModConexao;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DB, Data.SqlExpr, Data.DBXMySQL,
+  Data.FMTBcd, Datasnap.DBClient, Datasnap.Provider;
+
+type
+  TDataModule1 = class(TDataModule)
+    SQLConnection: TSQLConnection;
+    DScaixa: TSQLDataSet;
+    DSPcaixa: TDataSetProvider;
+    CDScaixa: TClientDataSet;
+    DScontas_pagar: TSQLDataSet;
+    DSPcontas_pagar: TDataSetProvider;
+    CDScontas_pagar: TClientDataSet;
+    DScontas_receber: TSQLDataSet;
+    DSPcontas_receber: TDataSetProvider;
+    CDS_contas_receber: TClientDataSet;
+    DSusuarios: TSQLDataSet;
+    DSPusuarios: TDataSetProvider;
+    CDSusuarios: TClientDataSet;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DataModule1: TDataModule1;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

@@ -1,0 +1,73 @@
+unit ufrmCadastroCaixa;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ufrmCadastroBasico, Data.DB,
+  System.Actions, Vcl.ActnList, System.ImageList, Vcl.ImgList, Vcl.StdCtrls,
+  Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, Vcl.ExtCtrls, tpEdit;
+
+type
+  TfrmCadastroCaixa = class(TfrmCadastroBasico)
+    Label1: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    EditDescricaoCaixa: TEdit;
+    EditNumeroDoc: TEdit;
+    RadioGroup: TRadioGroup;
+    editValorCaixa: TtpEdit;
+    procedure acSalvarExecute(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadastroCaixa: TfrmCadastroCaixa;
+
+implementation
+
+{$R *.dfm}
+
+uses ModConexao, UFuncoes, Uprincipal;
+
+procedure TfrmCadastroCaixa.acSalvarExecute(Sender: TObject);
+begin
+
+if Trim(EditNumeroDoc.Text) = '' then
+    begin
+      Application.MessageBox('Preencha o campo "Numero do Documento"','Atenção',MB_OK+MB_ICONWARNING);
+      EditNumeroDoc.SetFocus;
+      Abort;
+    end;
+
+    if Trim(EditDescricaoCaixa.Text) = '' then
+    begin
+      Application.MessageBox('Preencha o campo "Descrição"','Atenção',MB_OK+MB_ICONWARNING);
+      EditDescricaoCaixa.SetFocus;
+      Abort;
+    end;
+
+    if StringToFloat(editValorCaixa.Text)<= 0 then
+    begin
+      Application.MessageBox('Insira um valor positivo','Atenção',MB_OK+MB_ICONWARNING);
+      editValorCaixa.SetFocus;
+      Abort;
+    end;
+
+    dmDados.CDScaixaid.AsInteger := GetID('ID','CAIXA');
+    dmDados.CDScaixanumero_doc.AsString := Trim(editNumeroDoc.Text);
+    dmDados.CDScaixadescricao.AsString := Trim(editDescricaoCaixa.Text);
+    dmDados.CDScaixavalor.AsCurrency := StringToFloat(editValorCaixa.Text);
+
+    case RadioGroup.ItemIndex of
+      0 : dmDados.cdsCaixatipo.AsString := 'C';
+      1 : dmDados.cdsCaixatipo.AsString := 'D';
+    end;
+   inherited;
+
+end;
+
+end.

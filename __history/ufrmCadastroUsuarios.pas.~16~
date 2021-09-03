@@ -1,0 +1,75 @@
+unit ufrmCadastroUsuarios;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ufrmCadastroBasico, Data.DB,
+  System.Actions, Vcl.ActnList, System.ImageList, Vcl.ImgList, Vcl.ComCtrls,
+  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.ToolWin, Vcl.ActnMan,
+  Vcl.ActnCtrls;
+
+type
+  TfrmCadastroUsuarios = class(TfrmCadastroBasico)
+    Label3: TLabel;
+    Label4: TLabel;
+    EditLogin: TEdit;
+    EditSenha: TEdit;
+    EditNome: TEdit;
+    Label1: TLabel;
+    Action1: TAction;
+    procedure acSalvarExecute(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadastroUsuarios: TfrmCadastroUsuarios;
+
+implementation
+
+{$R *.dfm}
+
+uses ModConexao, UFuncoes;
+
+procedure TfrmCadastroUsuarios.acSalvarExecute(Sender: TObject);
+begin
+
+  if GetLoginCadastrado(trim(editLogin.Text)) then
+    Application.MessageBox('Login em uso','Atenção',MB_OK+MB_ICONWARNING);
+    editLogin.Setfocus;
+
+  if Trim(EditNome.Text) = '' then
+    begin
+      Application.MessageBox('Preencha o campo "Nome"','Atenção',MB_OK+MB_ICONWARNING);
+      EditNome.SetFocus;
+      Abort;
+    end;
+
+  if Trim(EditLogin.Text) = '' then
+    begin
+      Application.MessageBox('Preencha o campo "Login"','Atenção',MB_OK+MB_ICONWARNING);
+      EditLogin.SetFocus;
+      Abort;
+    end;
+
+    if Trim(EditSenha.Text) = '' then
+    begin
+      Application.MessageBox('Preencha o campo "Senha"','Atenção',MB_OK+MB_ICONWARNING);
+      EditSenha.SetFocus;
+      Abort;
+    end;
+
+    dmDados.CDSusuariosID.AsInteger := GetID ('ID','Usuarios');
+    dmDados.CDSusuariosNome.AsString := trim(editNome.Text);
+    dmDados.CDSusuariosLogin.AsString := trim(editLogin.Text);
+    dmDados.CDSusuariosSenha.AsString := trim(editSenha.Text);
+    dmDados.CDSusuariosStatus.AsString := 'A';
+    dmDados.CDSusuariosDt_cadastro.AsDateTime := now;
+  inherited;
+
+end;
+
+end.

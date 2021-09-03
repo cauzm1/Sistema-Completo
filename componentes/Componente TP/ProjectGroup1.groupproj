@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{1C876D25-5030-448B-B9C2-35BE3B65F782}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="TPComponent.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\..\SistemaFinancas.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="TPComponent">
+        <MSBuild Projects="TPComponent.dproj"/>
+    </Target>
+    <Target Name="TPComponent:Clean">
+        <MSBuild Projects="TPComponent.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TPComponent:Make">
+        <MSBuild Projects="TPComponent.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="SistemaFinancas">
+        <MSBuild Projects="..\..\SistemaFinancas.dproj"/>
+    </Target>
+    <Target Name="SistemaFinancas:Clean">
+        <MSBuild Projects="..\..\SistemaFinancas.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SistemaFinancas:Make">
+        <MSBuild Projects="..\..\SistemaFinancas.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="TPComponent;SistemaFinancas"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="TPComponent:Clean;SistemaFinancas:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="TPComponent:Make;SistemaFinancas:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

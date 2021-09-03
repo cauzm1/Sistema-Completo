@@ -1,0 +1,84 @@
+inherited frmCadastroContasReceber: TfrmCadastroContasReceber
+  Caption = 'Contas a Receber'
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited PageControl1: TPageControl
+    inherited tbsPesquisa: TTabSheet
+      inherited dbgDados: TDBGrid
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'id'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'status'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'documento'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'descricao'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'parcelas'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'valor_parcelas'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'valor_compra'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'valor_abatido'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'dt_compra'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'dt_vencimento'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'dt_cadastro'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'dt_pagamento'
+            Visible = True
+          end>
+      end
+      inherited cbxFiltros: TComboBoxEx
+        ItemsEx = <
+          item
+            Caption = 'Documento'
+          end
+          item
+            Caption = 'Descri'#231#227'o'
+          end>
+      end
+    end
+  end
+  inherited dsTabela: TDataSource
+    DataSet = dmDados.CDS_contas_receber
+  end
+end

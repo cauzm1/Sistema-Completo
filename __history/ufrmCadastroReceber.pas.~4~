@@ -1,0 +1,117 @@
+unit ufrmCadastroReceber;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ufrmCadastroBasico, Data.DB,
+  System.Actions, Vcl.ActnList, System.ImageList, Vcl.ImgList, Vcl.StdCtrls,
+  Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, tpEdit, Datasnap.DBClient;
+
+type
+  TfrmCadastroContasReceber = class(TfrmCadastroBasico)
+    Label1: TLabel;
+    EditDocumento: TEdit;
+    EditVariacao: TEdit;
+    Label8: TLabel;
+    Label3: TLabel;
+    EditDescricao: TEdit;
+    Label4: TLabel;
+    EditQtdParcelas: TEdit;
+    Label6: TLabel;
+    EditValorCompra: TtpEdit;
+    Label7: TLabel;
+    EditDataCompra: TtpEdit;
+    BtnGerarParcelas: TBitBtn;
+    BtnLimparParcelas: TBitBtn;
+    DBGrid1: TDBGrid;
+    cdsParcelas: TClientDataSet;
+    cdsParcelasParcela: TIntegerField;
+    cdsParcelasValor: TCurrencyField;
+    cdsParcelasVencimento: TDateField;
+    dsParcelas: TDataSource;
+    procedure dbgDadosDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure BtnLimparParcelasClick(Sender: TObject);
+    procedure BtnGerarParcelasClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadastroContasReceber: TfrmCadastroContasReceber;
+
+implementation
+
+{$R *.dfm}
+
+uses ModConexao, UFuncoes;
+
+procedure TfrmCadastroContasReceber.BtnGerarParcelasClick(Sender: TObject);
+var i : integer;
+begin
+
+  if editDocumento.Text = '' then
+    begin
+      Application.MessageBox('Preencha o campo Documento','Atenção',MB_OK+MB_ICONWARNING);
+      editDocumento.SetFocus;
+      Abort;
+    end;
+
+    if editDescricao.Text = '' then
+    begin
+      Application.MessageBox('Preencha o campo Descrição','Atenção',MB_OK+MB_ICONWARNING);
+      editDescricao.SetFocus;
+      Abort;
+    end;
+
+    if editQtdParcelas.Text = '' then
+    begin
+      Application.MessageBox('Preencha o campo N° de Parcelas','Atenção',MB_OK+MB_ICONWARNING);
+      editQtdParcelas.SetFocus;
+      Abort;
+    end;
+
+    if StringToFloat(editValorCompra.Text) = 0 then
+    begin
+      Application.MessageBox('Preencha o Valor da Compra','Atenção',MB_OK+MB_ICONWARNING);
+      editValorCompra.SetFocus;
+      Abort;
+    end;
+
+    if editDataCompra.Text = '' then
+    begin
+      Application.MessageBox('Preencha o campo Data da Compra','Atenção',MB_OK+MB_ICONWARNING);
+      editDataCompra.SetFocus;
+      Abort;
+    end;
+
+    cdsParcelas.EmptyDataSet;
+
+  for I := 1 to StrToInt(editQtdParcelas.Text) do
+    begin
+      cdsParcelas.Insert;
+      cdsParcelasParcela.AsInteger := i;
+      cdsParcelasValor.AsCurrency := StringToFloat(editValorCompra.Text)/ StrtoInt(editQtdParcelas.Text);
+      cdsParcelasVencimento.AsDateTime := StrToDate(editDataCompra.Text) + (StrToInt(EditVariacao.Text)* i);
+      cdsParcelas.Post;
+
+    end;
+
+end;
+
+procedure TfrmCadastroContasReceber.BtnLimparParcelasClick(Sender: TObject);
+begin
+  cdsParcelas.EmptyDataSet;
+end;
+
+procedure TfrmCadastroContasReceber.dbgDadosDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+
+  editarDbgrid(dsParcelas, Dbgrid1, State, Rect, Column);
+end;
+
+end.

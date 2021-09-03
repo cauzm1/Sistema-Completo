@@ -1,0 +1,17 @@
+program SistemaFinancas;
+
+uses
+  Vcl.Forms,
+  Uprincipal in 'Uprincipal.pas' {frmPrincipal},
+  ModConexao in 'ModConexao.pas' {DataModule1: TDataModule},
+  ufrmCadastroBasico in 'view\ufrmCadastroBasico.pas' {frmcadastrobasico};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TDataModule1, DataModule1);
+  Application.Run;
+end.

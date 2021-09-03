@@ -1,0 +1,48 @@
+unit ufrmCadastroReceber;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ufrmCadastroBasico, Data.DB,
+  System.Actions, Vcl.ActnList, System.ImageList, Vcl.ImgList, Vcl.StdCtrls,
+  Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, tpEdit, Datasnap.DBClient;
+
+type
+  TfrmCadastroContasReceber = class(TfrmCadastroBasico)
+    Label1: TLabel;
+    EditDocumento: TEdit;
+    EditVariacao: TEdit;
+    Label8: TLabel;
+    Label3: TLabel;
+    EditDescricao: TEdit;
+    Label4: TLabel;
+    EditQtdParcelas: TEdit;
+    Label6: TLabel;
+    EditValorCompra: TtpEdit;
+    Label7: TLabel;
+    EditDataCompra: TtpEdit;
+    BtnGerarParcelas: TBitBtn;
+    BtnLimparParcelas: TBitBtn;
+    DBGrid1: TDBGrid;
+    cdsParcelas: TClientDataSet;
+    cdsParcelasParcela: TIntegerField;
+    cdsParcelasValor: TCurrencyField;
+    cdsParcelasVencimento: TDateField;
+    dsParcelas: TDataSource;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadastroContasReceber: TfrmCadastroContasReceber;
+
+implementation
+
+{$R *.dfm}
+
+uses ModConexao, UFuncoes;
+
+end.

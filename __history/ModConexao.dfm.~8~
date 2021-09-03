@@ -1,0 +1,296 @@
+object dmDados: TdmDados
+  OldCreateOrder = False
+  Height = 332
+  Width = 560
+  object SQLConnection: TSQLConnection
+    ConnectionName = 'financeiro'
+    DriverName = 'MySQL'
+    LoginPrompt = False
+    Params.Strings = (
+      'DriverName=MySQL'
+      'DriverUnit=Data.DBXMySQL'
+      
+        'DriverPackageLoader=TDBXDynalinkDriverLoader,DbxCommonDriver220.' +
+        'bpl'
+      
+        'DriverAssemblyLoader=Borland.Data.TDBXDynalinkDriverLoader,Borla' +
+        'nd.Data.DbxCommonDriver,Version=22.0.0.0,Culture=neutral,PublicK' +
+        'eyToken=91d62ebb5b0d1b1b'
+      
+        'MetaDataPackageLoader=TDBXMySqlMetaDataCommandFactory,DbxMySQLDr' +
+        'iver220.bpl'
+      
+        'MetaDataAssemblyLoader=Borland.Data.TDBXMySqlMetaDataCommandFact' +
+        'ory,Borland.Data.DbxMySQLDriver,Version=22.0.0.0,Culture=neutral' +
+        ',PublicKeyToken=91d62ebb5b0d1b1b'
+      'LibraryName=dbxmys.dll'
+      'LibraryNameOsx=libsqlmys.dylib'
+      'VendorLib=LIBMYSQL.dll'
+      'VendorLibWin64=libmysql.dll'
+      'VendorLibOsx=libmysqlclient.dylib'
+      'Database=financeiro'
+      'User_Name=root'
+      'Password=123456'
+      'MaxBlobSize=-1'
+      'LocaleCode=0000'
+      'Compressed=False'
+      'Encrypted=False'
+      'BlobSize=-1'
+      'ErrorResourceFile='
+      'HostName=localhost')
+    Connected = True
+    Left = 24
+    Top = 8
+  end
+  object sdscaixa: TSQLDataSet
+    Active = True
+    CommandText = 'SELECT*FROM CAIXA'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = SQLConnection
+    Left = 40
+    Top = 80
+  end
+  object dspcaixa: TDataSetProvider
+    DataSet = sdscaixa
+    Left = 136
+    Top = 80
+  end
+  object cdscaixa: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspcaixa'
+    Left = 224
+    Top = 80
+    object cdscaixaid: TIntegerField
+      FieldName = 'id'
+      Required = True
+    end
+    object cdscaixanumero_doc: TStringField
+      FieldName = 'numero_doc'
+      Required = True
+    end
+    object cdscaixadescricao: TStringField
+      FieldName = 'descricao'
+      Size = 200
+    end
+    object cdscaixavalor: TFMTBCDField
+      FieldName = 'valor'
+      Required = True
+      Precision = 20
+      Size = 2
+    end
+    object cdscaixatipo: TStringField
+      FieldName = 'tipo'
+      Required = True
+      FixedChar = True
+      Size = 1
+    end
+    object cdscaixadt_cadastro: TDateField
+      FieldName = 'dt_cadastro'
+      Required = True
+    end
+  end
+  object dspcontas_pagar: TDataSetProvider
+    DataSet = sdscontas_pagar
+    Left = 136
+    Top = 136
+  end
+  object cdscontas_pagar: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspcontas_pagar'
+    Left = 224
+    Top = 136
+    object cdscontas_pagarid: TIntegerField
+      FieldName = 'id'
+      Required = True
+    end
+    object cdscontas_pagarnumero_doc: TStringField
+      FieldName = 'numero_doc'
+      Required = True
+    end
+    object cdscontas_pagardescricao: TStringField
+      FieldName = 'descricao'
+      Size = 200
+    end
+    object cdscontas_pagarparcela: TIntegerField
+      FieldName = 'parcela'
+      Required = True
+    end
+    object cdscontas_pagarvlr_parcela: TFMTBCDField
+      FieldName = 'vlr_parcela'
+      Required = True
+      Precision = 20
+      Size = 2
+    end
+    object cdscontas_pagarvlr_compra: TFMTBCDField
+      FieldName = 'vlr_compra'
+      Required = True
+      Precision = 20
+      Size = 2
+    end
+    object cdscontas_pagarvlr_abatido: TFMTBCDField
+      FieldName = 'vlr_abatido'
+      Required = True
+      Precision = 20
+      Size = 2
+    end
+    object cdscontas_pagardt_compra: TDateField
+      FieldName = 'dt_compra'
+      Required = True
+    end
+    object cdscontas_pagardt_cadastro: TDateField
+      FieldName = 'dt_cadastro'
+      Required = True
+    end
+    object cdscontas_pagardt_vencimento: TDateField
+      FieldName = 'dt_vencimento'
+      Required = True
+    end
+    object cdscontas_pagardt_pagamento: TDateField
+      FieldName = 'dt_pagamento'
+      Required = True
+    end
+    object cdscontas_pagarstatus: TStringField
+      FieldName = 'status'
+      Required = True
+      FixedChar = True
+      Size = 1
+    end
+  end
+  object sdscontas_pagar: TSQLDataSet
+    Active = True
+    CommandText = 'SELECT*FROM CONTAS_PAGAR'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = SQLConnection
+    Left = 40
+    Top = 136
+  end
+  object dspcontas_receber: TDataSetProvider
+    DataSet = sdscontas_receber
+    Left = 136
+    Top = 200
+  end
+  object cdscontas_receber: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspcontas_receber'
+    Left = 224
+    Top = 200
+    object cdscontas_receberid: TIntegerField
+      FieldName = 'id'
+      Required = True
+    end
+    object cdscontas_receberdocumento: TStringField
+      FieldName = 'documento'
+      Required = True
+    end
+    object cdscontas_receberdescricao: TStringField
+      FieldName = 'descricao'
+      Size = 200
+    end
+    object cdscontas_receberparcela: TIntegerField
+      FieldName = 'parcela'
+      Required = True
+    end
+    object cdscontas_recebervlr_parcela: TFMTBCDField
+      FieldName = 'vlr_parcela'
+      Required = True
+      Precision = 20
+      Size = 2
+    end
+    object cdscontas_recebervlr_compra: TFMTBCDField
+      FieldName = 'vlr_compra'
+      Required = True
+      Precision = 20
+      Size = 2
+    end
+    object cdscontas_recebervlr_abatido: TFMTBCDField
+      FieldName = 'vlr_abatido'
+      Required = True
+      Precision = 20
+      Size = 2
+    end
+    object cdscontas_receberdt_compra: TDateField
+      FieldName = 'dt_compra'
+      Required = True
+    end
+    object cdscontas_receberdt_vencimento: TDateField
+      FieldName = 'dt_vencimento'
+      Required = True
+    end
+    object cdscontas_receberdt_cadastro: TDateField
+      FieldName = 'dt_cadastro'
+      Required = True
+    end
+    object cdscontas_receberstatus: TStringField
+      FieldName = 'status'
+      Required = True
+      FixedChar = True
+      Size = 10
+    end
+    object cdscontas_receberdt_pagamento: TDateField
+      FieldName = 'dt_pagamento'
+    end
+  end
+  object sdscontas_receber: TSQLDataSet
+    Active = True
+    CommandText = 'SELECT*FROM CONTAS_RECEBER'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = SQLConnection
+    Left = 40
+    Top = 200
+  end
+  object dspusuarios: TDataSetProvider
+    DataSet = sdsusuarios
+    Left = 136
+    Top = 264
+  end
+  object cdsusuarios: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspusuarios'
+    Left = 224
+    Top = 264
+    object cdsusuariosid: TIntegerField
+      FieldName = 'Id'
+      Required = True
+    end
+    object cdsusuariosnome: TStringField
+      FieldName = 'Nome'
+      Required = True
+      Size = 50
+    end
+    object cdsusuarioslogin: TStringField
+      FieldName = 'Login'
+      Required = True
+    end
+    object cdsusuariossenha: TStringField
+      FieldName = 'Senha'
+      Required = True
+    end
+    object cdsusuariosstatus: TStringField
+      FieldName = 'status'
+      Required = True
+      FixedChar = True
+      Size = 1
+    end
+    object cdsusuariosdt_cadastro: TDateField
+      DisplayLabel = 'Data de Cadastro'
+      FieldName = 'dt_cadastro'
+    end
+  end
+  object sdsusuarios: TSQLDataSet
+    Active = True
+    CommandText = 'SELECT*FROM USUARIOS'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = SQLConnection
+    Left = 40
+    Top = 264
+  end
+end

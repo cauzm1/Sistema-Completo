@@ -1,0 +1,72 @@
+unit ufrmCadastroPagar;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ufrmCadastroBasico, Data.DB,
+  System.Actions, Vcl.ActnList, System.ImageList, Vcl.ImgList, Vcl.StdCtrls,
+  Vcl.ComCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, Vcl.ExtCtrls,
+  Datasnap.DBClient, tpEdit;
+
+type
+  Tfrmcadastropagar = class(Tfrmcadastrobasico)
+    edtdocumento: TEdit;
+    Label3: TLabel;
+    edtdescricao: TEdit;
+    Label4: TLabel;
+    edtqtdeparcelas: TEdit;
+    Label6: TLabel;
+    edtvlrparcela: TtpEdit;
+    edtdtcompra: TtpEdit;
+    Label7: TLabel;
+    edtvariacao: TEdit;
+    Label8: TLabel;
+    cdsparcelas: TClientDataSet;
+    DBGrid1: TDBGrid;
+    dsparcelas: TDataSource;
+    BitBtn1: TBitBtn;
+    cdsparcelasParcela: TIntegerField;
+    cdsparcelasValor: TCurrencyField;
+    cdsparcelasVencimento: TDateField;
+    BitBtn2: TBitBtn;
+    procedure BitBtn2Click(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmcadastropagar: Tfrmcadastropagar;
+
+implementation
+
+{$R *.dfm}
+
+uses ModConexao;
+
+procedure Tfrmcadastropagar.BitBtn1Click(Sender: TObject);
+begin
+
+ if edtDocumento.Text = '' then
+    begin
+      Application.MessageBox('Preencha o campo Documento!', 'Atenção', MB_OK+MB_ICONWARNING);
+     edtdescricao.SetFocus;
+     Abort;
+    end;
+
+ for I := 1 to Strtoint(edtQtdeParcelas.Text) do
+
+
+end;
+
+procedure Tfrmcadastropagar.BitBtn2Click(Sender: TObject);
+begin
+
+  cdsParcelas.EmptyDataSet;
+
+end;
+
+end.

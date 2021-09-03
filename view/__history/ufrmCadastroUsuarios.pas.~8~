@@ -1,0 +1,67 @@
+unit ufrmCadastroUsuarios;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ufrmCadastroBasico, Data.DB,
+  System.Actions, Vcl.ActnList, System.ImageList, Vcl.ImgList, Vcl.Grids,
+  Vcl.DBGrids, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Buttons, Vcl.ExtCtrls;
+
+type
+  Tfrmcadastrousuarios = class(Tfrmcadastrobasico)
+    Label3: TLabel;
+    Label4: TLabel;
+    edtnome: TEdit;
+    edtlogin: TEdit;
+    edtsenha: TEdit;
+    procedure acsalvarExecute(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmcadastrousuarios: Tfrmcadastrousuarios;
+
+implementation
+
+{$R *.dfm}
+
+uses ModConexao, UFuncoes;
+
+
+
+procedure Tfrmcadastrousuarios.acsalvarExecute(Sender: TObject);
+begin
+   if Trim(edtNome.Text) =  '' then
+   begin
+     Application.MessageBox('Preencha o campo Nome!', 'Atenção', MB_OK+MB_ICONWARNING);
+     edtNome.SetFocus;
+     Abort;
+   end;
+
+    if Trim(edtLogin.Text) =  '' then
+   begin
+     Application.MessageBox('Preencha o campo Login!', 'Atenção', MB_OK+MB_ICONWARNING);
+     edtLogin.SetFocus;
+     Abort;
+   end;
+
+    if Trim(edtSenha.Text) =  '' then
+   begin
+     Application.MessageBox('Preencha o campo Senha!', 'Atenção', MB_OK+MB_ICONWARNING);
+     edtSenha.SetFocus;
+     Abort;
+   end;
+
+  dmDados.cdsusuariosid.AsInteger := GetId('ID', 'USUARIOS');
+  dmDados.cdsusuariosnome.AsString := trim(edtNome.Text);
+  dmDados.cdsusuarioslogin.AsString := trim(edtLogin.Text);
+  dmDados.cdsusuariossenha.AsString := trim(edtSenha.Text);
+  inherited;
+
+end;
+
+end.
